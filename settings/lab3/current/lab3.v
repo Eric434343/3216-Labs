@@ -1,14 +1,15 @@
 
+//Eric and Elyse EECS 3216 lab3
 
 module lab3(
     input clk_50mhz,
-    input left_switch,
-    input right_switch,
+    input control_switch1,
+    input control_switch2,
     input key_zero_reset,
     input key_one_start,
 
-    output reg [9:5] left_leds,
-    output reg [4:0] right_leds,
+    output reg [9:5] led_set1,
+    output reg [4:0] led_set2,
     output [0:6] ss_display
 );
 
@@ -150,11 +151,11 @@ end
 
 
 // ------------------------------
-// LED MASKING (switch disables LEDs)
+// LED SWITCHES
 // ------------------------------
 always @(*) begin
-    left_leds  = (left_switch)  ? 5'b00000 : led_pattern[9:5];
-    right_leds = (right_switch) ? 5'b00000 : led_pattern[4:0];
+    led_set1  = (control_switch1)  ? 5'b00000 : led_pattern[9:5];
+    led_set2 = (control_switch2) ? 5'b00000 : led_pattern[4:0];
 end
 
 
@@ -221,4 +222,5 @@ module display(out, bit,);
 	assign out[6] = (~bit[3] & ~bit[2] & ~bit[1])|(~bit[3] & bit[2] & bit[1] & bit[0])|(bit[3] & bit[2] & ~bit[1] & ~bit[0]);
 	
 endmodule 
+
 
