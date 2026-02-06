@@ -38,7 +38,7 @@ reg [9:0] led_pattern;
 reg [5:0] pattern_step;
 reg [5:0] delay;
 
-reg [4:0] repeat_count = 0;   
+reg [4:0] repeat_count = 9;   
 reg started;
 
 
@@ -179,15 +179,16 @@ module clock_divider(
 
 reg [25:0] counter = 0;
 
-always @(posedge clk_in) begin
-    if(counter == 2_500_000-1) begin
-        clk_out <= ~clk_out;
-        counter <= 0;
-    end else
-        counter <= counter + 1;
-end
+always @(posedge clk_in) begin 
+    if(counter == 2_500_000-1) begin 
+        clk_out <= ~clk_out; 
+        counter <= 0; 
+    end else 
+        counter <= counter + 1; 
+end 
+ 
+endmodule 
 
-endmodule
 
 
 
@@ -220,3 +221,4 @@ module display(out, bit,);
 	assign out[6] = (~bit[3] & ~bit[2] & ~bit[1])|(~bit[3] & bit[2] & bit[1] & bit[0])|(bit[3] & bit[2] & ~bit[1] & ~bit[0]);
 	
 endmodule 
+
